@@ -1,0 +1,43 @@
+@page "/subscribealert"
+@layout Navless
+@inject HttpClient Http
+
+<h1 style="color: crimson">@message</h1>
+
+
+
+
+
+
+@code {
+
+    String message = "Stream Started";
+    Random rnd = new Random();
+
+    List<string> Events = new List<string>{"Subscribed", "Cheered", "Followed", "Said something", "Deleted bin/obj"};
+    List<string> Names = new List<string>{"Lachlan", "Kym", "Miguel", "James", "Balmer", "David", "Maddy"};
+
+    protected override async Task OnInitAsync()
+    {
+
+
+        while(true)
+        {
+            await Task.Delay(2000);
+            message = String.Empty;
+            this.StateHasChanged();
+
+
+            await Task.Delay(rnd.Next(3000,10000));
+            message = $"{Names[rnd.Next(Names.Count)]} {Events[rnd.Next(Events.Count)]}";
+            this.StateHasChanged();
+        }
+    
+
+
+
+    }
+
+}
+
+
