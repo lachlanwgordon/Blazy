@@ -1,0 +1,23 @@
+@page "/broadcastor"
+@inherits BoadcastorBase
+
+<h3>Broadcastor</h3>
+<h1 style="color: crimson">@Message</h1>
+
+<div class="container">
+    <input type="text" id="message" class="form-control" @bind=@Message onkeyup="@KeyUp" />
+    <input type="button" id="sendMessage" value="Send" class="btn btn-primary" onclick="@SendMessage" />
+    <ul id="discussion">
+        @foreach (var message in Messages)
+        {
+            <li>@message</li>
+        }
+    </ul>
+</div>
+
+@*<p> style="color: crimson">@Log</p>*@
+
+
+@code {
+
+}
