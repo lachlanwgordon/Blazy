@@ -1,6 +1,8 @@
 # Blazy
 Experimenting with Blazor Client Side. This site is hosted using Azure blob storage static website. You can view it at https://blazort.z26.web.core.windows.net/
 
+I've just added in SignalR using the Azure SignalR service and Azure Functions. The Admin page is now a basic SignalR Chat page and the Twitch Player shows each message for 2 seconds on a transparent background and then disappears.
+
 So far it is basically just the File>New Blazor Template with an extra page for subscribe alerts.
 
 The subscribe alerts page is a proof-of-concept page to test if client side Blazor can be used with a transperant background to display content overlayed in Twitch stream.
