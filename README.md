@@ -14,8 +14,12 @@ Pull requests are welcome. This is a playground for anyone wanting to experiment
 # Coding standard for contributors.
 Pretty lax for now but:
 ## New pages
-* Please name your page with the .razor extension
-
+* Pages should be named .razor extension e.g. `AboutPage.razor`
+* Code for a page should be placed in a code behind file, not in the `@code{}` block.
+* Code behind file should have the same name as the page with .razor.cs extension - This enables nesting in the solution explorer. e.g. `AboutPage.razor.cs`
+* The class in code behind's name should match the name of the page with `Base` on the end e.g. `AboutPageBase`
+* Code behind needs to inhertit from ComponentBase. e.g. `AboutPageBase : ComponentBase`
+* The razor page inherits from the code behind by adding an `@inherits` to the top of the file. e.g. `@inherits AboutPageBase`.
 
 
 
