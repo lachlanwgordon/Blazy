@@ -1,9 +1,10 @@
 ﻿using Blazor.Extensions;
-using Blazy.Models;
+using BlazyDomain.Models;
 using Microsoft.AspNetCore.Components;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -11,10 +12,11 @@ using System.Threading.Tasks;
 
 namespace Blazy.Pages
 {
-    public class BoadcastorBase : ComponentBase
+    public class ChatBase : ComponentBase
     {
         public string Log = "Hello Blazor";
-        public string Message = "Hello Blazor";
+        public string Message = "";
+        public string Name = "";
         public List<String> Messages = new List<string>();
         HubConnection Connection;
         [Inject] private HttpClient Http { get; set; }
@@ -23,6 +25,7 @@ namespace Blazy.Pages
 
         protected async override Task OnInitAsync()
         {
+            Debug.WriteLine("Chat base initialized");
             var opt = new HttpConnectionOptions();
             Http.DefaultRequestHeaders.Add("Accept", "application/json");
             Http.DefaultRequestHeaders.Add("Accept", "text/plain");
@@ -39,8 +42,8 @@ namespace Blazy.Pages
         public Task OnBroadCastMessage(Message message)
         {
             Log += $"\n received {message}";
-            Log += $"\n received {message.sender} {message.text}";
-            Messages.Add($"{message.sender}: {message.text}");
+            Log += $"\n received {message.Sender} {message.Text}";
+            Messages.Add($"{message.Sender}: {message.Text}");
             StateHasChanged();
             return Task.CompletedTask;
         }
@@ -58,7 +61,7 @@ namespace Blazy.Pages
             Log += $"\n send Blazy Client hellooo";
             StateHasChanged();
             //await Connection.InvokeAsync("SendMessage", "Blazy Client", Message);
-            var mes = new Message { sender = "Admin Page", text = Message };
+            var mes = new Message { Sender = Name, Text = Message };
             var content = Newtonsoft.Json.JsonConvert.SerializeObject(mes);
             await Http.PostAsync($"{BaseUrl}/messages", new StringContent(content, Encoding.UTF8, "application/json"));
 
