@@ -16,11 +16,8 @@ namespace Blazy.Pages
 
         protected override async Task OnInitAsync()
         {
-            //Forecasts = await Http.GetJsonAsync<List<WeatherForecast>>("sample-data/weather.json");
-            var url = "http://localhost:7071/api/weather";
-            Debug.WriteLine("Gettings data from {url}");
+            var url = "https://blazort.azurewebsites.net/api/weather";
             Forecasts = await Http.GetJsonAsync<List<WeatherForecast>>(url);
-
         }
     }
 }
