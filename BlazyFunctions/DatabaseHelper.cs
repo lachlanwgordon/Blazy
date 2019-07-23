@@ -1,4 +1,5 @@
 ﻿using Microsoft.Azure.Cosmos.Table;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,9 +33,15 @@ namespace BlazyFunctions
             return storageAccount;
         }
 
-        public static async Task<CloudTable> CreateTableAsync(string tableName)
+        public static async Task<CloudTable> CreateTableAsync(string tableName, Microsoft.Azure.WebJobs.ExecutionContext context)
         {
-            string storageConnectionString = StorageConnectionString;
+            var config = new ConfigurationBuilder()
+                .SetBasePath(context.FunctionAppDirectory)
+                .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables()
+                .Build();
+
+            string storageConnectionString = config.GetConnectionString("StorageConnectionString");
             CloudStorageAccount storageAccount = CreateStorageAccountFromConnectionString(storageConnectionString);
 
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient(new TableClientConfiguration());

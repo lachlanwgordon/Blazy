@@ -52,9 +52,9 @@ namespace BlazyFunctions
         /// <param name="rowId">not used</param>
         /// <returns>Weather forcasts from the database</returns>
         [FunctionName("weather")]
-        public static async Task<List<WeatherForecast>> GetWeather([HttpTrigger(AuthorizationLevel.Anonymous, "get")] string rowId)
+        public static async Task<List<WeatherForecast>> GetWeather([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req, ExecutionContext context)
         {
-            CloudTable table = await DatabaseHelper.CreateTableAsync(nameof(WeatherForecast));
+            CloudTable table = await DatabaseHelper.CreateTableAsync(nameof(WeatherForecast), context);
             var result = await table.ExecuteQuerySegmentedAsync<WeatherForecast>(new TableQuery<WeatherForecast>(), null);//This should be kept in a differnt class but I'm not sure what pattern to follow
 
             return new List<WeatherForecast> ( result );
