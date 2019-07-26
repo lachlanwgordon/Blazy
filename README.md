@@ -11,6 +11,9 @@ As this project matures I will be adding instructions on how to set up hosting o
 
 Pull requests are welcome. This is a playground for anyone wanting to experiment with Client Side Blazor.
 
+## Functions and table storage
+The fetch data page now connects to an Azure Function which has weather data stored in Table storage. The data is still rubbish but it was a an excuse to connect a function to table storage.
+
 # Coding standard for contributors.
 Pretty lax for now but:
 ## New pages
